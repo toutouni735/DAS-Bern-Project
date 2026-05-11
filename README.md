@@ -1,25 +1,73 @@
-# DAS-Bern-Project
 
-## Deep Learning-Based Cell Segmentation for Cellular Analysis
+# Deep Learning-Based Cell Segmentation for Cellular Analysis
 
-This repository contains the code used for the DAS project poster on fluorescence microscopy image segmentation using Cellpose.
+This repository contains the code used for the DAS project on fluorescence microscopy image segmentation using Cellpose.  
+The project focuses on improving segmentation performance through a human-in-the-loop workflow combining pretrained Cellpose segmentation, manual correction in napari, and supervised fine-tuning.
 
-### Contents
+## Repository contents
 
-- `01_finetuning_cellpose.ipynb`: fine-tuning of the Cellpose model using manually corrected masks
-- `02_metrics_evaluation.ipynb`: computation of IoU, Dice, Precision, Recall, F1-score, and nuclei count
-- `03_plots_and_figures.ipynb`: generation of the figures used in the poster
+### Notebooks
 
-### Dataset
+- `cellpose1-v2.ipynb`  
+  Demonstration notebook for initial Cellpose-based segmentation on fluorescence microscopy images.  
+  It includes image loading, segmentation, visualization of predicted masks, object counting, and overlay display.
 
-The dataset consists of fluorescence microscopy images of Hoechst-stained nuclei with manually corrected segmentation masks generated in napari.
+- `1 fine tuning.ipynb`  
+  Main notebook of the project.  
+  It includes:
+  - GPU and software verification
+  - loading of microscopy images and annotated masks
+  - pairing of images and corresponding edited label masks
+  - supervised fine-tuning of a pretrained Cellpose model
+  - comparison between pretrained and fine-tuned predictions
+  - computation of segmentation metrics
+  - generation of performance plots
+  - comparison with a watershed-based classical segmentation method
 
-### Software
+## Project summary
+
+Fluorescence microscopy image analysis is essential in biological and biomedical research, but manual segmentation is often time-consuming, subjective, and difficult to reproduce.  
+In this project, a pretrained Cellpose model was first used to generate segmentation masks. These masks were then manually corrected in napari to obtain high-quality ground-truth annotations. The corrected annotations were used to fine-tune the model on the target dataset, leading to improved segmentation performance.
+
+## Dataset
+
+The dataset consists of fluorescence microscopy images with corresponding manually corrected segmentation masks.  
+The masks were edited in napari and used as ground truth for supervised retraining and evaluation.
+
+## Main analysis steps
+
+1. Initial segmentation using a pretrained Cellpose model  
+2. Manual correction of predicted masks in napari  
+3. Fine-tuning of the segmentation model on the corrected annotations  
+4. Quantitative evaluation using:
+   - Intersection over Union (IoU)
+   - Dice coefficient
+   - Precision
+   - Recall
+   - F1-score
+   - Detected object / nuclei counts
+5. Comparison with a classical watershed-based segmentation approach
+
+## Software and environment
+
+The notebooks were developed in a Jupyter environment using Python and the following main libraries:
 
 - Python 3.11
 - Cellpose 4.0.5
 - PyTorch 2.10.0+cu128
-- scikit-image
-- matplotlib
+- NumPy
 - pandas
-- numpy
+- matplotlib
+- scikit-image
+- scikit-learn
+- Pillow
+
+## Notes
+
+- The repository is intended to document the code used for the DAS project poster and analysis.
+- The notebooks are preserved in their working form as used during the project.
+- The repository does not need to be public; it is shared for project review and reproducibility purposes.
+
+## Author
+
+**Romain Topalian**  
